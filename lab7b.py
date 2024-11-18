@@ -42,3 +42,32 @@ def valid_time(t):
     if t.minute >= 60 or t.second >= 60 or t.hour >= 24:
         return False
     return True
+
+def change_time(time, seconds):
+    """Modify the time object by adding/subtracting the given seconds."""
+    # Add the seconds to the time object
+    time.second += seconds
+
+    # Adjust seconds and borrow if necessary
+    while time.second >= 60:
+        time.second -= 60
+        time.minute += 1
+    while time.second < 0:
+        time.second += 60
+        time.minute -= 1
+
+    # Adjust minutes and borrow if necessary
+    while time.minute >= 60:
+        time.minute -= 60
+        time.hour += 1
+    while time.minute < 0:
+        time.minute += 60
+        time.hour -= 1
+
+    # Ensure the hour is within valid range (0 to 23)
+    if time.hour >= 24:
+        time.hour = time.hour % 24
+    elif time.hour < 0:
+        time.hour = (time.hour + 24) % 24
+
+    return None
